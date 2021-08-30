@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block title %} Meteo Rwanda AWS Wind Contours {% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+    #contFreqContour {
+    width: 100%;
+    height: 73vh;
+    margin: 10px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <!-- Plot Time series -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Wind Data</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Station</label>
+                                <select name="aws" id="stationDispAWS" class="form-control"> </select>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Select Time Step</label>
+                                <select name="tstep" id="timestepDispTS" class="form-control">
+                                    <option value="minute">AWS Original Time Step</option>
+                                    <option value="hourly" selected>Hourly Data</option>
+                                </select>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Start Time</label>
+                                <br>
+                                <table class="aws-select-time ts-start-time"> </table>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">End Time</label>
+                                <br>
+                                <table class="aws-select-time ts-end-time"></table>
+                            </div>
+                            <br>
+                            <!--  -->
+                            <div>
+                                <span>
+                                    <label class="control-label">Centered Contours Map at:</label>
+                                    <select name="centre" id="mapcentre">
+                                        <option value="N">North</option>
+                                        <option value="E">East</option>
+                                        <option value="S" selected>South</option>
+                                        <option value="W">West</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <a id="plotWindDataBut">
+                                    <button type="button" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Plot Frequencies Contours</button>
+                                </a>
+                            </div>
+                            <!--  -->
+                            <p id="errorMSG"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#dispfreq" data-toggle="tab">Frequencies Contours</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="dispfreq">
+                    <div id="contFreqContour">
+                        <img id="windcontours" src="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/aws-display-data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/params-AWS-WindData.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-Wind-Contours.js') }}"></script>
+{% endblock %}

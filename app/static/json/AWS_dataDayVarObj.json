@@ -1,0 +1,45 @@
+{
+    "variables": [
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 2
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 10
+    },
+    {
+        "var_code": 2,
+        "var_name": "Air temperature",
+        "var_units": "degC",
+        "height": 2
+    },
+    {
+        "var_code": 6,
+        "var_name": "Relative humidity",
+        "var_units": "%",
+        "height": 2
+    },
+    {
+        "var_code": 1,
+        "var_name": "Air pressure",
+        "var_units": "hPa",
+        "height": 2
+    },
+    {
+        "var_code": 8,
+        "var_name": "Total radiation",
+        "var_units": "W/m2",
+        "height": 2
+    },
+    {
+        "var_code": 5,
+        "var_name": "Precipitation",
+        "var_units": "mm",
+        "height": 1
+    }]
+}

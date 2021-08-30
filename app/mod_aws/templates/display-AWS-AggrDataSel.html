@@ -1,0 +1,251 @@
+{% extends "layout.html" %}
+{% block title %} NMA ADT {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/highstock.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/highcharts-more.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/exporting.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/accessibility.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
+<style>
+    #divselectAWS{
+    margin: 10px auto 5px auto;
+    width: 100%;
+    padding: 3px 2px 5px 2px;
+    text-align: center;
+    }
+    .selectAWSSP{
+    display:none;
+    }
+    #contAWSGraph {
+    width: 100%;
+    height: 80vh;
+    }
+    #mapAWSVars {
+    width: 100%;
+    height: 80vh;
+    /*border: 1px solid #AAA;*/
+    }
+    #idTable {
+    max-height: 75vh;
+    }
+    #butMapVar{
+    width:100%;
+    margin-top: 5px;
+    }
+    #pTable {
+    margin-top: 5px;
+    text-align: center;
+    }
+    #butMapVar table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    }
+    #colKeyMapVar{
+    margin-top:10px;
+    margin-bottom: 5px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <!-- data source -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>AWS Data </span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Time Step</label>
+                                <select name="tstep" id="timestepDispTS" class="form-control">
+                                    <option value="hourly">Hourly data</option>
+                                    <option value="daily" selected>Daily data</option>
+                                    <option value="pentad">Pentad data</option>
+                                    <option value="dekadal">Dekadal data</option>
+                                    <option value="monthly">Monthly data</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Plot Time series -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Time Series</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <!--
+                                <div>
+                                    <label class="control-label">Select Station</label>
+                                <select name="aws" id="stationDispAWS" class="form-control"> </select>
+                            </div>
+                            -->
+                            <!--  -->
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Select Variable</label>
+                                <select name="vars" id="awsObsVar" class="form-control"> </select>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Start Date</label>
+                                <br>
+                                <table class="aws-select-time  ts-start-time"></table>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">End Date</label>
+                                <br>
+                                <table class="aws-select-time ts-end-time"></table>
+                            </div>
+                            <br>
+                            <!--  -->
+                            <div id="selpars">
+                                <label>Select Parameter:</label>
+                                <select name="pars" id="awsParams" class="awsplotts"></select>
+                            </div>
+                            <!--  -->
+                            <div id="divselectAWS">
+                                <button type="button" id="selectAWSPlotTS" class="btn btn-default"> Select Stations to Display </button>
+                            </div>
+                            <div class="modal fade" id="selectAWSModalTS" role="dialog"></div>
+                            <!--  -->
+                            <div>
+                                <a id="plotAWSGraph">
+                                    <button type="button" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Plot Parameter</button>
+                                </a>
+                            </div>
+                            <!--  -->
+                            {% if session.logged_in %}
+                            <!--  -->
+                            <div>
+                                <a id="dispAWSTable">
+                                    <button type="button" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Display Table</button>
+                                </a>
+                            </div>
+                            <!--  -->
+                            <div class="download">
+                                <button id="downAWSVars" type="button" class="btn btn-primary btn-block">Download Data</button>
+                            </div>
+                            {% endif %}
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Plot spatial -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Map</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Date</label>
+                                <br>
+                                <table class="aws-select-time map-select-time"></table>
+                            </div>
+                            <!--  -->
+                            <div id="butMapVar">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <a id="AWSMapPrev">
+                                                <button type="button" class="btn btn-primary btn-block">Previous</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a id="AWSMapDis">
+                                                <button type="button" class="btn btn-primary btn-block">Display</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a id="AWSMapNext">
+                                                <button type="button" class="btn btn-primary btn-block">Next</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <label class="control-label">Select Variables </label>
+                                <select id="awsSpVar" class="form-control">
+                                    <option value="" selected disabled hidden></option>
+                                </select>
+                            </div>
+                            <!--  -->
+                            <div id="colKeyMapVar"></div>
+                            <!--  -->
+                            <div id="divselectAWS" class="selectAWSSP">
+                                <button type="button" id="selectAWSPlotSP" class="btn btn-default"> Select Stations to Display </button>
+                            </div>
+                            <div class="modal fade" id="selectAWSModalSP" role="dialog"></div>
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#dispawssp" data-toggle="tab">AWS Map</a></li>
+                <li><a href="#dispawsts" data-toggle="tab">AWS Time Series</a></li>
+                <!--  -->
+                {% if session.logged_in %}
+                <li><a href="#disptable" data-toggle="tab">Variables Table</a></li>
+                {% endif %}
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="dispawssp">
+                    <div id="mapAWSVars"></div>
+                </div>
+                <div class="tab-pane" id="dispawsts">
+                    <div id="contAWSGraph"></div>
+                    <p id="errorMSG"></p>
+                </div>
+                <!--  -->
+                {% if session.logged_in %}
+                <div class="tab-pane" id="disptable">
+                    <p id="pTable"></p>
+                    <div id="idTable" class="table-responsive"> </div>
+                    <p id="errorMSG"></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<!--  -->
+{% if session.logged_in %}
+<script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/export-data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/export-AWS-AggrDataSel.js') }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/aws-display-data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/params-AWS-AggrData.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/print-screen-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-AWS-AggrDataSel.js') }}"></script>
+{% endblock %}

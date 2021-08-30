@@ -1,0 +1,105 @@
+#idTable {
+    margin-top: 10px;
+    max-height: 75vh;
+}
+
+.jsonTable {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.jsonTable td,
+#jsonTable th {
+    border: 1px solid #ddd;
+    /*padding: 5px;*/
+}
+
+.jsonTable tr:nth-child(even) {
+    background-color: #daedf0;
+}
+
+.jsonTable tr:hover {
+    background-color: #ddd;
+}
+
+.jsonTable th {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+    background-color: #3071a9;
+    color: white;
+}
+
+.jsonTable td:first-child {
+    font-weight: bold;
+}
+
+/* ********** */
+.register-form {
+    width: 80%;
+    margin: 20px auto;
+    padding: 16px;
+    background-color: white;
+}
+
+.register-form hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 10px;
+}
+
+.register-form table {
+    width: 100%;
+}
+
+.register-form table td:first-child {
+    width: 20%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.register-form #fullname,
+.register-form #institution,
+.register-form #email {
+    width: 100%;
+}
+
+.register-form #rmUsername,
+.register-form #username,
+.register-form #password,
+.register-form #confirm {
+    width: 50%;
+}
+
+.register-form input[type=text],
+.register-form input[type=password] {
+    padding: 5px;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+.register-form input[type=text]:focus,
+.register-form input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+#div-submit-add,
+#div-submit-rm {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#btn-submit-add,
+#btn-submit-rm {
+    width: 30%;
+    min-height: 38px;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.errors {
+    color: red;
+}

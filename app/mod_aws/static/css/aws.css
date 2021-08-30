@@ -1,0 +1,31 @@
+.jsonTable {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.jsonTable td,
+#jsonTable th {
+    border: 1px solid #ddd;
+    /*padding: 5px;*/
+}
+
+.jsonTable tr:nth-child(even) {
+    background-color: #daedf0;
+}
+
+.jsonTable tr:hover {
+    background-color: #ddd;
+}
+
+.jsonTable th {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+    background-color: #3071a9;
+    color: white;
+}
+
+.jsonTable td:first-child {
+    font-weight: bold;
+}

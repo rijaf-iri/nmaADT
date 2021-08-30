@@ -1,0 +1,29 @@
+<div id="register-table" class="register-form">
+    <h2>New User Added</h2>
+    <hr>
+    <table>
+        <tr>
+            <td>{{ form.username.label }} :</td>
+            <td>{{ form.username.data }}</td>
+        </tr>
+        <tr>
+            <td><strong>User Access Level</strong> :</td>
+            <td>{{ form.userlevel.data }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.email.label }} :</td>
+            <td>{{ form.email.data }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.fullname.label }} :</td>
+            <td>{{ form.fullname.data }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.institution.label }} :</td>
+            <td>{{ form.institution.data }}</td>
+        </tr>
+    </table>
+    <hr>
+    <p> Click on <strong>Create New User</strong> to create a new user</p>
+    <p> Click on <strong>List All Users</strong> to list all registered users</p>
+</div>

@@ -1,0 +1,459 @@
+{
+    "variables": [
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 10,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 10,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 10,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 2,
+        "var_name": "Air temperature",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 2,
+        "var_name": "Air temperature",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 2,
+        "var_name": "Air temperature",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 11,
+        "var_name": "Wind gust speed",
+        "var_units": "m/s",
+        "height": 2,
+        "stat_code": 5,
+        "stat_name": "value"
+    },
+    {
+        "var_code": 11,
+        "var_name": "Wind gust speed",
+        "var_units": "m/s",
+        "height": 10,
+        "stat_code": 5,
+        "stat_name": "value"
+    },
+    {
+        "var_code": 6,
+        "var_name": "Relative humidity",
+        "var_units": "%",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 6,
+        "var_name": "Relative humidity",
+        "var_units": "%",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 6,
+        "var_name": "Relative humidity",
+        "var_units": "%",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 10,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 10,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 9,
+        "var_name": "Wind direction",
+        "var_units": "degree",
+        "height": 10,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 3,
+        "var_name": "Dewpoint",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 3,
+        "var_name": "Dewpoint",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 3,
+        "var_name": "Dewpoint",
+        "var_units": "degC",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 1,
+        "var_name": "Air pressure",
+        "var_units": "hPa",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 1,
+        "var_name": "Air pressure",
+        "var_units": "hPa",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 1,
+        "var_name": "Air pressure",
+        "var_units": "hPa",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 8,
+        "var_name": "Total radiation",
+        "var_units": "W/m2",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 8,
+        "var_name": "Total radiation",
+        "var_units": "W/m2",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 8,
+        "var_name": "Total radiation",
+        "var_units": "W/m2",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 5,
+        "var_name": "Precipitation",
+        "var_units": "mm",
+        "height": 1,
+        "stat_code": 4,
+        "stat_name": "sum"
+    },
+    {
+        "var_code": 4,
+        "var_name": "Leaf wetness",
+        "var_units": "",
+        "height": 2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 4,
+        "var_name": "Leaf wetness",
+        "var_units": "",
+        "height": 2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 4,
+        "var_name": "Leaf wetness",
+        "var_units": "",
+        "height": 2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 12,
+        "var_name": "Wind gust direction",
+        "var_units": "degree",
+        "height": 2,
+        "stat_code": 5,
+        "stat_name": "value"
+    },
+    {
+        "var_code": 12,
+        "var_name": "Wind gust direction",
+        "var_units": "degree",
+        "height": 10,
+        "stat_code": 5,
+        "stat_name": "value"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.2,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.2,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.5,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.5,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.5,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1,
+        "stat_code": 2,
+        "stat_name": "min"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1,
+        "stat_code": 3,
+        "stat_name": "max"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.1,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.3,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.4,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.6,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.7,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.8,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.9,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1.1,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1.2,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.15,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.45,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.75,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 1.05,
+        "stat_code": 1,
+        "stat_name": "avg"
+    }]
+}

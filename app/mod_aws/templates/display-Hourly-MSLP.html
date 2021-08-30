@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% block title %} Meteo Rwanda AWS MSLP {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<style>
+    #mapAWSVars {
+    width: 100%;
+    height: 80vh;
+    }
+    #butMapVar table {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 10px;
+    }
+    #butMapVar table td {
+    padding: 0 2px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <!-- Plot spatial -->
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Map</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select Date</label>
+                                <br>
+                                <table class="aws-select-time  map-select-time"></table>
+                            </div>
+                            <!--  -->
+                            <div id="butMapVar">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <a id="AWSMapPrev">
+                                                <button type="button" class="btn btn-primary btn-block">Previous</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a id="AWSMapDis">
+                                                <button type="button" class="btn btn-primary btn-block">Display</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a id="AWSMapNext">
+                                                <button type="button" class="btn btn-primary btn-block">Next</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--  -->
+                            <div id="colKeyMapVar"></div>
+                            <!--  -->
+                            {% if session.logged_in %}
+                            <div class="download">
+                                <a id="downMSLP" href="" target="_blank" download>
+                                    <button type="button" class="btn btn-primary btn-block">Download Data in CSV</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                            <p id="errorMSG"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#dispawssp" data-toggle="tab">MSLP Map</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="dispawssp">
+                    <div id="mapAWSVars"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<!--  -->
+{% if session.logged_in %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/export-Hourly-MSLP.js') }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/aws-display-data.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/params-Hourly-MSLP.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/print-screen-map.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-Hourly-MSLP.js') }}"></script>
+{% endblock %}
+<!-- http://www.wind101.net/sea-level-pressure-advanced/sea-level-pressure-advanced.html -->

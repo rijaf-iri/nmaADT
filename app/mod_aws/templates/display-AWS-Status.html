@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+{% block title %} Meteo Rwanda AWS Status {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/js/leaflet-color-markers.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<style>
+    #mapAWSStatus {
+    width: 100%;
+    height: 80vh;
+    }
+    .pinstatus{
+    height: 35px;
+    width: 20px;
+    margin-right: 10px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>AWS Data Status</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <br>
+                                <span>
+                                    <label>AWS reporting data for the last</label>
+                                    <select name="lastAvail" id="lastAvail">
+                                        <option value="01h" selected>1 hour</option>
+                                        <option value="03h">3 hours</option>
+                                        <option value="06h">6 hours</option>
+                                        <option value="12h">12 hours</option>
+                                        <option value="24h">24 hours</option>
+                                        <option value="02d">2 days</option>
+                                        <option value="03d">3 days</option>
+                                        <option value="05d">5 days</option>
+                                        <option value="01w">1 week</option>
+                                        <option value="02w">2 weeks</option>
+                                        <option value="03w">3 weeks</option>
+                                        <option value="01m">1 month</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <span>
+                                    <input type="checkbox" id="dispallaws"> Display All Stations
+                                </span>
+                            </div>
+                            <!-- <br> -->
+                            <div>
+                                <a id="updateStatus">
+                                    <button type="button" class="btn btn-primary btn-block"> Update Map </button>
+                                </a>
+                            </div>
+                            <!--  -->
+                            <br>
+                            <div>
+                                <p> <strong>Actual Time: </strong> <code id="timeStatus">2020-01-01 00:00:00</code></p>
+                                <p> <strong>Last Update: </strong> <code id="lastUpdate">2020-01-01 00:00:00</code></p>
+                            </div>
+                            <!--  -->
+                            <div>
+                                <!--  -->
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-blue.png') }}">
+                                        </td>
+                                        <td>
+                                            ]75% - 100%]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-green.png') }}">
+                                        </td>
+                                        <td>
+                                            ]50% - 75%]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-gold.png') }}">
+                                        </td>
+                                        <td>
+                                            ]25% - 50%]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-orange.png') }}">
+                                        </td>
+                                        <td>
+                                            ]0% - 25%]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-red.png') }}">
+                                        </td>
+                                        <td>
+                                            No Observation
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downTableStatus" class="btn btn-primary btn-block"> Download Status Table </button>
+                            </div>
+                            <!--  -->
+                            <div class="download">
+                                <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
+                            </div>
+                            <!--  -->
+                            <p id="errorMSG"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#mapstatus" data-toggle="tab">AWS Map</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="mapstatus">
+                    <div id="mapAWSStatus"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('aws.static', filename='js/display-AWS-Status.js') }}"></script>
+{% endblock %}

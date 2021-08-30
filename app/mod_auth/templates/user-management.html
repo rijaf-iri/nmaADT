@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %} Meteo Rwanda Users Management {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('auth.static', filename='css/user-management.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row wrapper">
+        <!-- Left Panel -->
+        <div class="col-sm-3 input-sidebar-left">
+            <div class="row">
+                <div class="col-md-12 sidebar box">
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Users Management</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <br>
+                            <div>
+                                <a id="createNewUser">
+                                    <button type="button" class="btn btn-primary btn-block">Create New User</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a id="displayUsers">
+                                    <button type="button" class="btn btn-primary btn-block">List All Users</button>
+                                </a>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right panel -->
+        <div class="col-sm-9 main box">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#createUserTab" data-toggle="tab">User Creation</a></li>
+                <li><a href="#dispUserTab" data-toggle="tab">List of All Users</a></li>
+                <li><a href="#removeUserTab" data-toggle="tab">Remove User</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="createUserTab">
+                    <div class="register-cont">
+                        {% if registred_ok %}
+                        {% include 'register_reply.html' %}
+                        {% else %}
+                        {% include 'register_form.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="dispUserTab">
+                    <div id="idTable" class="table-responsive">
+                    </div>
+                </div>
+                <div class="tab-pane" id="removeUserTab">
+                    {% include 'remove_form.html' %}
+                    <div id="rmUserTable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('auth.static', filename='js/user-management.js') }}"></script>
+{% endblock %}

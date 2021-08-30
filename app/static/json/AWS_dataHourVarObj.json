@@ -1,0 +1,155 @@
+{
+    "variables": [
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 2
+    },
+    {
+        "var_code": 10,
+        "var_name": "Wind speed",
+        "var_units": "m/s",
+        "height": 10
+    },
+    {
+        "var_code": 2,
+        "var_name": "Air temperature",
+        "var_units": "degC",
+        "height": 2
+    },
+    {
+        "var_code": 6,
+        "var_name": "Relative humidity",
+        "var_units": "%",
+        "height": 2
+    },
+    {
+        "var_code": 3,
+        "var_name": "Dewpoint",
+        "var_units": "degC",
+        "height": 2
+    },
+    {
+        "var_code": 1,
+        "var_name": "Air pressure",
+        "var_units": "hPa",
+        "height": 2
+    },
+    {
+        "var_code": 8,
+        "var_name": "Total radiation",
+        "var_units": "W/m2",
+        "height": 2
+    },
+    {
+        "var_code": 5,
+        "var_name": "Precipitation",
+        "var_units": "mm",
+        "height": 1
+    },
+    {
+        "var_code": 4,
+        "var_name": "Leaf wetness",
+        "var_units": "",
+        "height": 2
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.2
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.5
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.1
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.3
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.4
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.6,
+        "stat_code": 1,
+        "stat_name": "avg"
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.7
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.8
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 0.9
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1.1
+    },
+    {
+        "var_code": 7,
+        "var_name": "Soil moisture",
+        "var_units": "%",
+        "height": 1.2
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.15
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.45
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 0.75
+    },
+    {
+        "var_code": 14,
+        "var_name": "Soil Temperature",
+        "var_units": "degC",
+        "height": 1.05
+    }]
+}

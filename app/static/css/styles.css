@@ -1,0 +1,590 @@
+html,
+body {
+    height: 100%;
+}
+
+/* navbar */
+.navbar-custom {
+    background-color: #3071a9;
+    border-color: #3071a9;
+    font-weight: bold;
+}
+
+/* Title */
+.navbar-custom .navbar-brand {
+/*
+    color: #ffffff;
+    background-color: #ffffff;
+    border-color: #ffffff;
+*/
+
+    color: #3071a9;
+    background-color: #3071a9;
+    border-color: #ffffff;
+
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+    color: #ffffff;
+    background-color: #ffffff;
+}
+
+.navbar-custom .navbar-brand>img {
+/*
+    max-width: 120px;
+    margin-top: -7px;
+    padding: 0px;
+    width: auto;
+
+*/
+
+    max-width: 300px;
+    margin-top: -15px;
+    height: 50px;
+    padding: 0px;
+
+
+}
+
+/* Link */
+.navbar-custom .navbar-nav>li>a {
+    color: #ffffff;
+    background-color: #3071a9;
+}
+
+.navbar-custom .navbar-nav>li>a:hover,
+.navbar-custom .navbar-nav>li>a:focus {
+    color: #3071a9;
+    background-color: #ffffff;
+}
+
+.navbar-custom .navbar-nav>.active>a,
+.navbar-custom .navbar-nav>.active>a:hover,
+.navbar-custom .navbar-nav>.active>a:focus {
+    color: #0998eb;
+    background-color: #ffffff;
+}
+
+.navbar-custom .navbar-nav>.open>a,
+.navbar-custom .navbar-nav>.open>a:hover,
+.navbar-custom .navbar-nav>.open>a:focus {
+    color: #0998eb;
+    background-color: #ffffff;
+}
+
+/* Caret */
+.navbar-custom .navbar-nav>.dropdown>a .caret {
+    border-top-color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+
+.navbar-custom .navbar-nav>.dropdown>a:hover .caret,
+.navbar-custom .navbar-nav>.dropdown>a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+
+.navbar-custom .navbar-nav>.open>a .caret,
+.navbar-custom .navbar-nav>.open>a:hover .caret,
+.navbar-custom .navbar-nav>.open>a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+
+/* Mobile version */
+.navbar-custom .navbar-toggle {
+    border-color: #DDD;
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+    background-color: #DDD;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+
+@media (max-width: 767px) {
+    .navbar-custom .navbar-nav .open .dropdown-menu>li>a {
+        color: #777;
+    }
+
+    .navbar-custom .navbar-nav .open .dropdown-menu>li>a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu>li>a:focus {
+        color: #333;
+    }
+}
+
+/****************** left right **************************/
+
+.row {
+    padding: 10px;
+}
+
+.input-sidebar-left {
+    margin-top: -20px;
+}
+
+.sidebar {
+    background-color: #f2f2f2;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.main {
+    background-color: #f2f2f2;
+    border-radius: 15px 15px 0 0;
+}
+
+.box {
+    box-model: border-box;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+/****************** left panel container **************************/
+
+.sidebar .input-container {
+    width: auto;
+}
+
+.input-container {
+    /*padding: 5px 1px 15px 1px;*/
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.input-container-title {
+    position: relative;
+    display: block;
+
+    color: white;
+    background-color: #3071a9;
+
+    border-radius: 10px 10px 0 0;
+
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 2px 0 1px 0px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.input-container-title.open,
+.input-container-title:hover,
+.input-container-title:focus {
+    color: black;
+    background-color: #03befc;
+}
+
+.input-container-title .input-container-icon {
+    font-size: 0.7em;
+    margin-right: 10px;
+    padding-top: 3px;
+    float: right;
+}
+
+.input-container-content {
+    /*display: block;*/
+    display: none;
+    overflow: auto;
+}
+
+.input-container-content .btn-primary {
+    margin-top: 5px;
+}
+
+.input-container-content .btn {
+    min-height: 25px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/****************** select time **************************/
+
+.aws-select-time {
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 3px 0;
+    margin: 0 auto;
+}
+
+/****************** leaflet **************************/
+
+/* marker class */
+.pin {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #3071a9;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+}
+
+.pin:hover {
+    background: 'yellow';
+}
+
+.pin-inner {
+    width: 22px;
+    height: 22px;
+    margin: 2px 0px 0px 5px;
+    background: #fff;
+    left: -5%;
+    top: 5%;
+    position: absolute;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    text-align: center;
+}
+
+.pin-label {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.pin-arrow {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-color: #444 transparent transparent transparent;
+    border-width: 15px 5px 0 5px;
+    margin-left: 6px;
+    margin-top: 3px;
+    border-top-color: black;
+    transform: rotate(270deg);
+}
+
+/* bindTooltip class */
+.tooltipbottom {
+    background: lightgreen;
+    border: 2px solid darkgreen;
+}
+
+.leaflet-tooltip-left.tooltipbottom::before {
+    border-left-color: darkgreen;
+}
+
+.leaflet-tooltip-right.tooltipbottom::before {
+    border-right-color: darkgreen;
+}
+
+/* map scale class */
+
+.leaflet-control-scale-line {
+    position: absolute;
+    top: -7px;
+    left: 0;
+}
+
+/* map display administrative name when on hover */
+
+.leaflet-display-admin-name {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    border-radius: 4px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #2262CC;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/****************** colorkey **************************/
+
+.ckeyh {
+    height: 50px;
+    width: 400px;
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.ckeyh .ckeyh-color td {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.ckeyh .ckeyh-color td:first-child {
+    border-left: 1px solid black;
+}
+
+.ckeyh .ckeyh-color td:last-child {
+    border-right: 1px solid black;
+}
+
+.ckeyh tr.ckeyh-color {
+    height: 40%;
+}
+
+.ckeyh .ckeyh-tick td {
+    border: 1px solid black;
+    border-bottom-style: hidden;
+}
+
+.ckeyh tr.ckeyh-tick {
+    height: 25%;
+}
+
+.ckeyh .ckeyh-tick td:first-child {
+    border-left: 0;
+}
+
+.ckeyh .ckeyh-tick td:last-child {
+    border-right: 0;
+}
+
+.ckeyh .ckeyh-label td {
+    text-align: center;
+}
+
+.ckeyh tr.ckeyh-label {
+    height: 35%;
+}
+
+/* ********** */
+
+.ckeyv {
+    height: 400px;
+    width: 50px;
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.ckeyv .ckeyv-color {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.ckeyv td.ckeyv-color {
+    width: 40%;
+}
+
+.ckeyv .cl-top {
+    border-top: 1px solid black;
+}
+
+.ckeyv .cl-bottom {
+    border-bottom: 1px solid black;
+}
+
+.ckeyv .ckeyv-label {
+    text-align: left;
+    padding-left: 2px;
+    border: none;
+    /*font-weight: bold;*/
+    /*font-size: small;*/
+}
+
+.ckeyv td.ckeyv-label {
+    width: 50%;
+}
+
+.ckeyv .ckeyv-tick {
+    border-bottom: 1px solid black;
+}
+
+.ckeyv .tk-bottom {
+    border-bottom: 0;
+}
+
+.ckeyv td.ckeyv-tick {
+    width: 10%;
+}
+
+/****************** aws popup table  **************************/
+
+.awsTablebindPopup .leaflet-popup-tip-container {
+    max-width: 800px;
+}
+
+.awsTablebindPopupP {
+    width: 600px;
+    /*margin-top: 2px;*/
+    /*margin-bottom: 2px;*/
+}
+
+.awsTablebindPopup {
+    width: 100%;
+}
+
+.awsTablebindPopup .awsTablebindPopupTh th {
+    background-color: #3071a9;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.awsTablebindPopup .awsTablebindPopupTr td {
+    border: 1px solid black;
+}
+
+.awsTablebindPopup .awsTablebindPopupTr td:nth-child(1) {
+    width: 65%;
+    text-align: right;
+    font-weight: bold;
+}
+
+.awsTablebindPopup .awsTablebindPopupTr td:nth-child(2) {
+    text-align: center;
+}
+
+.awsTablebindPopup .awsTablebindPopupTr td:nth-child(3) {
+    text-align: center;
+}
+
+.awsTablebindPopup tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.awsTablebindPopup tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/****************** loading  **************************/
+
+.glyphicon-refresh {
+    margin-right: 5px;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+/****************** Flask flash  **************************/
+
+.div-flash-alert {
+    display: block;
+    width: 99%;
+    vertical-align: top;
+    margin-top: -20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.div-flash-alert .alert {
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 5px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.div-flash-alert .alert button {
+    margin-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/****************** login modal  **************************/
+
+#loginModal .vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+#loginModal .vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#loginModal .modal-content {
+    width: 400px;
+    height: inherit;
+    /* To center horizontally */
+    margin: 50px auto;
+}
+
+#loginModal form {
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+#loginModal .modal-title {
+    text-align: center;
+}
+
+#loginModal .form-control {
+    min-height: 38px;
+    border-radius: 2px;
+}
+
+#btn-submit-login {
+    min-height: 38px;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+/****************** precip rate params radar polar **************************/
+
+.div-modal-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*grid-auto-rows: min-content;*/
+    /*align-self: start;*/
+    align-items: start;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+}
+
+.div-modal-box {
+    border-style: inset;
+    /*background: red;*/
+    padding: 5px;
+}
+
+.div-modal-box input[type=text] {
+    padding: 0px 2px;
+    line-height: 1em;
+}
+
+.div-modal-select {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 0.2fr 1fr;
+    align-items: center;
+    grid-column-gap: 5px;
+}

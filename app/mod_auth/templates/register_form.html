@@ -1,0 +1,31 @@
+<div id="register-userf" class="register-form">
+    <h2>Create New User</h2>
+    <p>Fill in this form to create an account.</p>
+    <hr>
+    {% from "register_formhelpers.html" import render_field %}
+    <form method="post" action="/createUser">
+        {{ form.hidden_tag() }}
+        <table>
+            <tr>{{ render_field(form.fullname) }}</tr>
+            <tr>{{ render_field(form.institution) }}</tr>
+            <tr>{{ render_field(form.email) }}</tr>
+            <tr>{{ render_field(form.username) }}</tr>
+            <tr>{{ render_field(form.password) }}</tr>
+            <tr>{{ render_field(form.confirm) }}</tr>
+            <tr>{{ render_field(form.userlevel) }}</tr>
+        </table>
+        <div id="div-submit-add">
+            <button id="btn-submit-add" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    <hr>
+    {% if error %}
+    <p class="error"><strong>Error:</strong>{{ error }}</p>
+    {% endif %}
+    <p> (*) User Access Levels </p>
+    <ul>
+        <li><strong>Level 1:</strong>&nbsp; able to download data and display table of data</li>
+        <li><strong>Level 2:</strong>&nbsp; able to run scripts</li>
+        <li><strong>Level 3:</strong>&nbsp; super user, able to create account</li>
+    </ul>
+</div>

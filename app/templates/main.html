@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block title %} National Meteorology Agency {% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+/*    body {
+    background-image: url("{{ url_for('static', filename='images/nma_logo_1.png') }}");
+    background-repeat: round;
+    background-size: 100px 100px;
+    }
+    */
+.titre-rw {
+    grid-area: headr;
+}
+
+.image-nma {
+    grid-area: nma;
+}
+
+.image-bole {
+    grid-area: bole;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+        'headr headr headr headr headr headr headr headr'
+        'nma nma nma nma nma nma nma nma'
+        'bole bole bole bole bole bole bole bole';
+    grid-gap: 5px;
+    padding: 2px;
+}
+
+.container>div {
+    text-align: center;
+}
+
+.imgNMA {
+    width: 800px;
+    height: 100px;
+}
+
+.imgBole {
+    width: 600px;
+    height: 450px;
+}
+
+.daty-now {
+    text-align: center;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="titre-rw">
+        <h1>Welcome to NMA AWS Data Tools (ADT) and Visualization</h1>
+    </div>
+    <div class="image-nma">
+        <img class="imgNMA" src="{{ url_for('static', filename='images/nma_head.png') }}" />
+    </div>
+    <div class="image-bole">
+        <img class="imgBole" src="{{ url_for('static', filename='images/bole.jpg') }}" />
+    </div>
+</div>
+<div>
+    <p class="daty-now"> {{ date_now("%Y-%m-%d %H:%M") }}</p>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+</script>
+{% endblock %}
