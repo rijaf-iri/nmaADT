@@ -28,5 +28,5 @@ class UserCreationForm(FlaskForm):
             EqualTo('password', message = 'Passwords must match')
         ])
     userlevel = SelectField('User Access', choices = [
-        ('1', 'Level 1'), ('2', 'Level 2'), ('3', 'Level 3')
+        ('1', 'Level 1'), ('2', 'Level 2')
         ])
