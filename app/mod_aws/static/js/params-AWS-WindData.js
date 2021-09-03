@@ -11,7 +11,7 @@ function setAWSWindDataTime(backInday) {
     lastDaty.setDate(lastDaty.getDate() - backInday);
     var daty = new Date();
     //
-    for (var i = 0; i < 60; ++i) {
+    for (var i = 0; i < 60; i += 15) {
         var mn = i;
         if (i < 10) {
             mn = "0" + i;
@@ -21,6 +21,7 @@ function setAWSWindDataTime(backInday) {
         );
     }
     var vmin = daty.getMinutes();
+    vmin = vmin - vmin % 15;
     $("#minute1").val("00");
     $("#minute2").val((vmin < 10 ? "0" : "") + vmin);
     //
@@ -77,19 +78,7 @@ function setAWSWindDataTime(backInday) {
     $("#year2").val(thisYear);
     //
     //
-    $.getJSON('/readAWSWind', (json) => {
-        AWS_JSON = json;
-        $('#stationDispAWS').attr('enabled', 'true');
-        $.each(json, function() {
-            var text = this.id + " - " + this.stationName + " - " + this.AWSGroup;
-            var val = this.id;
-            $('#stationDispAWS').append(
-                $("<option>").text(text).val(val)
-            );
-        });
-        $('#stationDispAWS option[value=000003]').attr('selected', true);
-    });
-    //
+
     $("#timestepDispTS").change(function() {
         if ($(this).val() == "hourly") {
             $(".aws-select-time td:last-child").hide();
@@ -98,4 +87,21 @@ function setAWSWindDataTime(backInday) {
         }
     });
     $("#timestepDispTS").trigger("change");
+}
+
+function setAWSWindDataCoords(height) {
+    $('#stationDispAWS').empty();
+    $.getJSON('/readCoordsWind', { 'height': height },
+        (json) => {
+            AWS_JSON = json;
+            $('#stationDispAWS').attr('enabled', 'true');
+            $.each(json, function() {
+                var text = this.name + " - " + this.id + " - " + this.network;
+                var val = this.network_code + "_" + this.id;
+                $('#stationDispAWS').append(
+                    $("<option>").text(text).val(val)
+                );
+            });
+            // $('#stationDispAWS option[value=1_17]').attr('selected', true);
+        });
 }

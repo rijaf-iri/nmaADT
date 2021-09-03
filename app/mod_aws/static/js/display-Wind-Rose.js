@@ -1,5 +1,11 @@
 $(document).ready(() => {
     setAWSWindDataTime(60);
+    setAWSWindDataCoords('2');
+
+    $("#windHeight").on("change", () => {
+        var height = $("#windHeight option:selected").val();
+        setAWSWindDataCoords(height);
+    });
 
     ////////
     var today = new Date();
@@ -8,12 +14,13 @@ $(document).ready(() => {
     var daty1 = dateFormat(today, "yyyy-mm-dd-hh");
 
     var data0 = {
-        "aws": "000003",
+        "net_aws": "1_17",
+        "height": "2",
         "tstep": "hourly",
         "start": daty1,
         "end": daty2
     };
-    plotWindRose10MinHourly(data0);
+    plot_WindRose_MinHourly(data0, true);
 
     //
     $("#plotWindroseBut").on("click", () => {
@@ -26,12 +33,13 @@ $(document).ready(() => {
         var vrange = startEndDateTime(timestep, obj);
         //
         var data = {
-            "aws": $("#stationDispAWS option:selected").val(),
+            "net_aws": $("#stationDispAWS option:selected").val(),
+            "height": $("#windHeight option:selected").val(),
             "tstep": timestep,
             "start": vrange.start,
             "end": vrange.end
         };
-        plotWindRose10MinHourly(data);
+        plot_WindRose_MinHourly(data, false);
     });
 
     /////////
@@ -44,13 +52,14 @@ $(document).ready(() => {
         var timestep = $("#timestepDispTS option:selected").val();
         var vrange = startEndDateTime(timestep, obj);
         var data = {
+            net_aws: $("#stationDispAWS option:selected").val(),
+            height: $("#windHeight option:selected").val(),
             tstep: timestep,
-            aws: $("#stationDispAWS option:selected").val(),
             start: vrange.start,
             end: vrange.end
         };
 
-        var url = '/openairWindrose' + '?' + encodeQueryData(data);
+        var url = '/openairWindRose' + '?' + encodeQueryData(data);
         $("#downWindroseBut").attr("href", url).attr('target', '_blank');
     });
 
@@ -64,30 +73,26 @@ $(document).ready(() => {
         var timestep = $("#timestepDispTS option:selected").val();
         var vrange = startEndDateTime(timestep, obj);
         var data = {
+            net_aws: $("#stationDispAWS option:selected").val(),
+            height: $("#windHeight option:selected").val(),
             tstep: timestep,
-            aws: $("#stationDispAWS option:selected").val(),
             start: vrange.start,
             end: vrange.end
         };
 
-        var url = '/donwWindFreqCSV' + '?' + encodeQueryData(data);
+        var url = '/downWindFreqCSV' + '?' + encodeQueryData(data);
         $("#downTableFreqBut").attr("href", url).attr('target', '_blank');
     });
 });
 
 /////////// 
-function plotWindRose10MinHourly(data) {
+function plot_WindRose_MinHourly(data) {
     $.ajax({
         dataType: "json",
-        url: '/dispWindRose',
+        url: '/chartWindRose',
         data: data,
         timeout: 120000,
-        success: (json) => {
-            var ret = highchartsWindRose10MinHourly(json);
-            if (ret) {
-                titleWindRose10MinHourly();
-            }
-        },
+        success: highcharts_WindRose_MinHourly,
         beforeSend: () => {
             $("#plotWindroseBut .glyphicon-refresh").show();
         },
@@ -107,47 +112,9 @@ function plotWindRose10MinHourly(data) {
 
 /////////// 
 
-function titleWindRose10MinHourly() {
-    var obj = checkDateTimeRange();
-    if (!obj) {
-        return false;
-    }
-    // 
-    var timestep = $("#timestepDispTS option:selected").val();
-    var aws = $("#stationDispAWS option:selected").val();
-    var vrange = startEndDateTime(timestep, obj);
-    //
-    var stn = new Object();
-    for (var i = 0; i < AWS_JSON.length; ++i) {
-        if (AWS_JSON[i].id === aws) {
-            stn['id'] = AWS_JSON[i].id;
-            stn['name'] = AWS_JSON[i].stationName;
-            stn['step'] = AWS_JSON[i].timestep;
-        }
-    }
-    //
-    stnStart = vrange.start.split("-");
-    var min1 = (timestep == "hourly") ? "00" : stnStart[4];
-    stnStart = stnStart[0] + "/" + stnStart[1] + "/" + stnStart[2] + " " + stnStart[3] + ":" + min1;
-    stnEnd = vrange.end.split("-");
-    var min2 = (timestep == "hourly") ? "00" : stnEnd[4];
-    stnEnd = stnEnd[0] + "/" + stnEnd[1] + "/" + stnEnd[2] + " " + stnEnd[3] + ":" + min2;
-    var stnPeriod = "Period: " + stnStart + " - " + stnEnd + "; ";
-    //
-    var stnStep = (timestep == "hourly") ? "Hourly" : stn.step + " minutes";
-    stnStep = stnStep + " wind data";
-    //
-    var stnRose = "Windrose: " + stn.id + " - " + stn.name + "; ";
-    $('#pwindrose').html(stnRose + stnPeriod + stnStep);
-    var stnFreq = "Table of Frequencies (%): " + stn.id + " - " + stn.name + "; ";
-    $('#pwindfreq').html(stnFreq + stnPeriod + stnStep);
-}
-
-/////////// 
-
-function highchartsWindRose10MinHourly(json) {
-    if (jQuery.isEmptyObject(json)) {
-        $('#errorMSG').css("background-color", "orange").html("No data");
+function highcharts_WindRose_MinHourly(json) {
+    if (json.status != 'ok') {
+        $('#errorMSG').css("background-color", "orange").html(json.status);
         return false;
     }
     // 
@@ -229,9 +196,9 @@ function highchartsWindRose10MinHourly(json) {
     $('.jsonTable').remove();
 
     // 
-    var colHeader = Object.keys(json);
+    var colHeader = Object.keys(json.freq);
     var colNb = colHeader.length;
-    var rowNb = json[colHeader[0]].length;
+    var rowNb = json.freq[colHeader[0]].length;
     //
     var table = $('<table>').addClass('jsonTable').attr('id', 'jsonTable');
     var rowh = $('<tr>');
@@ -251,12 +218,23 @@ function highchartsWindRose10MinHourly(json) {
             } else {
                 colclass = "calm";
             }
-            var col = $('<td>').addClass(colclass).text(json[colHeader[j]][i]);
+            var col = $('<td>').addClass(colclass).text(json.freq[colHeader[j]][i]);
             row.append(col);
         }
         table.append(row);
     }
     $('#idTable').append(table);
+
+    //add title
+    var chartP = "Windrose at " + json.height + "m : ";
+    var tableP = "Table of Frequencies (%) at " + json.height + "m : ";
+    var stnRose = json.name + " - " + json.id + " - " + json.network + "; ";
+    var stnPeriod = "Period: " + json.start + " - " + json.end + "; ";
+    var stnStep = (json.timestep == "hourly") ? "Hourly" : " 15 minutes";
+    stnStep = stnStep + " wind data";
+
+    $('#pwindrose').html(chartP + stnRose + stnPeriod + stnStep);
+    $('#pwindfreq').html(tableP + stnRose + stnPeriod + stnStep);
 
     // click tab dispfreq first to render the table
     // then activate tab disprose
@@ -264,6 +242,4 @@ function highchartsWindRose10MinHourly(json) {
     $('a[href="#disprose"]').click();
     //
     Highcharts.chart('contWindRose', options);
-
-    return true;
 }

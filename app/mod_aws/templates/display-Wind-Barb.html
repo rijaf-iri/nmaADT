@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Meteo Rwanda AWS Wind Data {% endblock %}
+{% block title %} NMA ADT {% endblock %}
 {% block head %}
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/highcharts.js') }}"></script>
@@ -34,9 +34,17 @@
                             </div>
                             <!--  -->
                             <div>
+                                <label class="control-label">Select Height</label>
+                                <select name="height" id="windHeight" class="form-control">
+                                    <option value="2" selected>2 meter above ground</option>
+                                    <option value="10">10 meter above ground</option>
+                                </select>
+                            </div>
+                            <!--  -->
+                            <div>
                                 <label class="control-label">Select Time Step</label>
                                 <select name="tstep" id="timestepDispTS" class="form-control">
-                                    <option value="minute">AWS Original Time Step</option>
+                                    <option value="minute">15 Minutes Data</option>
                                     <option value="hourly" selected>Hourly Data</option>
                                 </select>
                             </div>

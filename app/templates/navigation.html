@@ -24,11 +24,11 @@
                         <li class="dropdown-submenu">
                             <a href="#"> AWS Wind Data </a>
                             <ul class="dropdown-menu">
-                                <li><a href=""> Display Wind Barb </a></li>
+                                <li><a href="{{ url_for('aws.dispWindBarb_page') }}"> Display Wind Barb </a></li>
                                 <li class="divider"></li>
-                                <li><a href="">Display Wind Rose</a></li>
+                                <li><a href="{{ url_for('aws.dispWindRose_page') }}">Display Wind Rose</a></li>
                                 <li class="divider"></li>
-                                <li><a href="">Visualizing Diurnal Wind Climatologies</a></li>
+                                <li><a href="{{ url_for('aws.dispWindContours_page') }}">Visualizing Diurnal Wind Climatology</a></li>
                             </ul>
                         </li>
                         <li class="divider"></li>

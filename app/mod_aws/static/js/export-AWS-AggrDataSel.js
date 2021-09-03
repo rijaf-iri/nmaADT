@@ -110,12 +110,13 @@ $("#downAWSVars").on("click", () => {
     }
     var tstep = $("#timestepDispTS option:selected").val();
     var vrange = startEndDateTime(tstep, obj);
+
     var data = {
-        'aws': selAWSTS,
-        'vars': $("#awsObsVar option:selected").val(),
-        'pars': $("#awsParams option:selected").val(),
-        'tstep': tstep,
-        'range': vrange
+        "net_aws": selAWSTS,
+        "var_hgt": $("#awsObsVar option:selected").val(),
+        "pars": $("#awsParams option:selected").val(),
+        "tstep": tstep,
+        "range": vrange
     };
 
     $.ajax({
@@ -128,7 +129,7 @@ $("#downAWSVars").on("click", () => {
         },
         success: (blob, status, xhr) => {
             // default filename if not found
-            var filename = data["vars"] + "_" + data["pars"] + "_" + data["tstep"] + ".csv"
+            var filename = data["tstep"] + "_" + data["var_hgt"] + "_" + data["pars"] + ".csv"
 
             // check for a filename
             var dispos = xhr.getResponseHeader('Content-Disposition');

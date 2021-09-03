@@ -17,7 +17,7 @@ $(document).ready(() => {
         AWS_INFO = getAWSInfos('2_SHADDI15');
         setAWSVariableSelect('2_SHADDI15');
 
-        // 
+        // Integrate to R function from /readCoords
         AWS_TimeRange = getAWSTimeRange('/getAWSTimeRange', {
             'id': "SHADDI15",
             'net': '2'
@@ -204,10 +204,18 @@ function plot_Map_dataMinAWS(daty) {
             var vars = $("#awsSpVar option:selected").val();
             leaflet_Map_dataMinAWS(vars, json);
         },
+        beforeSend: () => {
+            if (mymapBE != undefined) {
+                mymapBE.closePopup();
+                mymapBE.spin(true, spinner_opts);
+            }
+        },
         error: (request, status, error) => {
             $('#errorMSG').css("background-color", "red");
             $('#errorMSG').html("Error: " + request + status + error);
         }
+    }).always(() => {
+        mymapBE.spin(false);
     });
 }
 

@@ -121,7 +121,7 @@ $("#downAWSVarCDT").on("click", () => {
     var tstep = $("#timestepDispTS option:selected").val();
     var vrange = startEndDateTime(tstep, obj);
     var data = {
-        vars: $("#awsObsVar option:selected").val(),
+        var_hgt: $("#awsObsVar option:selected").val(),
         pars: $("#awsParams option:selected").val(),
         tstep: tstep,
         start: vrange.start,

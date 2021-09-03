@@ -20,15 +20,17 @@ mod_aws = Blueprint(
 )
 
 grdevices = importr("grDevices")
-mtoadt = importr("mtoadt")
+mtoadt = importr("mtoadtNMA")
 
 dirAWS = config.AWS_DATA_DIR
 
 #####################
 
+
 @mod_aws.route("/dispAWSCoordsPage")
 def dispAWSCoords_page():
     return render_template("display-AWS-Coordinates.html")
+
 
 @mod_aws.route("/dispAWSCoordsMap")
 def dispAWSCoords_map():
@@ -36,15 +38,18 @@ def dispAWSCoords_map():
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
 
+
 @mod_aws.route("/dispAWSMinDataPage")
 def dispAWSMinData_page():
     return render_template("display-AWS-MinData.html")
+
 
 @mod_aws.route("/readCoords")
 def readCoords():
     robj = mtoadt.readCoords(dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
 
 @mod_aws.route("/getAWSTimeRange")
 def getAWSTimeRange():
@@ -54,6 +59,7 @@ def getAWSTimeRange():
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
 
+
 @mod_aws.route("/chartMinAWSData")
 def chartMinAWSData():
     net_aws = request.args.get("net_aws")
@@ -62,11 +68,10 @@ def chartMinAWSData():
     start = request.args.get("start")
     end = request.args.get("end")
     plotrange = request.args.get("plotrange")
-    robj = mtoadt.chartMinAWSData(
-        net_aws, var_hgt, stat, start, end, plotrange, dirAWS
-    )
+    robj = mtoadt.chartMinAWSData(net_aws, var_hgt, stat, start, end, plotrange, dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
 
 @mod_aws.route("/mapMinAWSData")
 def mapMinAWSData():
@@ -75,6 +80,7 @@ def mapMinAWSData():
     robj = mtoadt.mapMinAWSData(time, dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
 
 @mod_aws.route("/downAWSMinDataCSV")
 @login_required
@@ -86,15 +92,17 @@ def downAWSMinDataCSV():
     robj = mtoadt.downAWSMinDataCSV(net_aws, var_hgt, start, end, dirAWS)
     pyobj = json.loads(robj[0])
 
-    cd = "attachment; filename=" + pyobj['filename']
+    cd = "attachment; filename=" + pyobj["filename"]
     downcsv = Response(
-        pyobj['data'], mimetype="text/csv", headers={"Content-disposition": cd}
+        pyobj["data"], mimetype="text/csv", headers={"Content-disposition": cd}
     )
     return downcsv
+
 
 @mod_aws.route("/dispAWSAggrDataPage")
 def dispAWSAggrData_page():
     return render_template("display-AWS-AggrData.html")
+
 
 @mod_aws.route("/chartAggrAWSData")
 def chartAggrAWSData():
@@ -111,6 +119,7 @@ def chartAggrAWSData():
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
 
+
 @mod_aws.route("/mapAggrAWSData")
 def mapAggrAWSData():
     time = request.args.get("time")
@@ -118,6 +127,7 @@ def mapAggrAWSData():
     robj = mtoadt.mapAggrAWSData(tstep, time, dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
 
 @mod_aws.route("/tableAggrAWSData")
 @login_required
@@ -129,6 +139,7 @@ def tableAggrAWSData():
     robj = mtoadt.tableAggrAWSData(tstep, net_aws, start, end, dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
 
 @mod_aws.route("/downTableAggrCSV")
 @login_required
@@ -145,6 +156,7 @@ def downTableAggrCSV():
         robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
     )
     return downcsv
+
 
 @mod_aws.route("/downAWSAggrOneVarCSV")
 @login_required
@@ -163,10 +175,32 @@ def downAWSAggrOneVarCSV():
     )
     return downcsv
 
-################ 
+
+@mod_aws.route("/downAWSAggrCDTDataCSV")
+@login_required
+def downAWSAggrCDTDataCSV():
+    var_hgt = request.args.get("var_hgt")
+    pars = request.args.get("pars")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    robj = mtoadt.downAWSAggrCDTDataCSV(tstep, var_hgt, pars, start, end, dirAWS)
+
+    filename = (
+        "cdt_" + tstep + "_" + var_hgt + "_" + pars + "_" + start + "-" + end + ".csv"
+    )
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+################
 @mod_aws.route("/dispAWSAggrDataSelPage")
 def dispAWSAggrDataSel_page():
     return render_template("display-AWS-AggrDataSel.html")
+
 
 @mod_aws.route("/chartAggrAWSDataSel", methods=["POST"])
 def chartAggrAWSDataSel():
@@ -186,6 +220,7 @@ def chartAggrAWSDataSel():
     # pyobj = {"opts":{"status": "no-data", "title": ""}}
     return json.dumps(pyobj)
 
+
 @mod_aws.route("/tableAggrAWSDataSel", methods=["POST"])
 @login_required
 def tableAggrAWSDataSel():
@@ -201,3 +236,162 @@ def tableAggrAWSDataSel():
     )
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
+
+@mod_aws.route("/downTableAggrDataSelCSV", methods=["POST"])
+@login_required
+def downTableAggrDataSelCSV():
+    pars = request.get_json()
+    robj = mtoadt.downTableAggrDataSelCSV(
+        pars["tstep"],
+        rvect.StrVector(pars["net_aws"]),
+        pars["var_hgt"],
+        pars["pars"],
+        pars["range"]["start"],
+        pars["range"]["end"],
+        dirAWS,
+    )
+
+    filename = pars["tstep"] + "_" + pars["var_hgt"] + "_" + pars["pars"] + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+################
+
+
+@mod_aws.route("/readCoordsWind")
+def readCoordsWind():
+    height = request.args.get("height")
+    robj = mtoadt.readCoordsWind(height, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/dispWindBarbPage")
+def dispWindBarb_page():
+    return render_template("display-Wind-Barb.html")
+
+
+@mod_aws.route("/chartWindBarb")
+def chartWindBarb():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    robj = mtoadt.chartWindBarb(net_aws, height, tstep, start, end, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/downWindBarbCSV")
+@login_required
+def downWindBarbCSV():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    robj = mtoadt.downWindBarbCSV(net_aws, height, tstep, start, end, dirAWS)
+
+    filename = "wind_" + tstep + "_" + net_aws + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+@mod_aws.route("/dispWindRosePage")
+def dispWindRose_page():
+    return render_template("display-Wind-Rose.html")
+
+
+@mod_aws.route("/chartWindRose")
+def chartWindRose():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    robj = mtoadt.chartWindRose(net_aws, height, tstep, start, end, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/openairWindRose")
+def openairWindRose():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+
+    fp = tempfile.NamedTemporaryFile(delete=False)
+    fpng = fp.name + ".png"
+    grdevices.png(file=fpng, width=620, height=600)
+    mtoadt.openairWindRose(net_aws, height, tstep, start, end, dirAWS)
+    grdevices.dev_off()
+
+    png = open(fpng, "rb").read()
+    fp.close()
+    os.unlink(fpng)
+
+    filename = "windrose_" + tstep + "_at_" + height + "m_" + net_aws + ".png"
+    cd = "attachment; filename=" + filename
+    downpng = Response(png, mimetype="image/png", headers={"Content-disposition": cd})
+    return downpng
+
+
+@mod_aws.route("/downWindFreqCSV")
+@login_required
+def downWindFreqCSV():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+
+    robj = mtoadt.downWindFreqCSV(net_aws, height, tstep, start, end, dirAWS)
+
+    filename = "wind_" + tstep + "_at_" + height + "m_" + net_aws + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+@mod_aws.route("/dispWindContoursPage")
+def dispWindContours_page():
+    return render_template("display-Wind-Contours.html")
+
+
+@mod_aws.route("/graphWindContours")
+def graphWindContours():
+    net_aws = request.args.get("net_aws")
+    height = request.args.get("height")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    centre = request.args.get("centre")
+
+    fp = tempfile.NamedTemporaryFile(delete=False)
+    fpng = fp.name + ".png"
+    grdevices.png(file=fpng, width=950, height=520)
+    mtoadt.graphWindContours(net_aws, height, tstep, start, end, centre, dirAWS)
+    grdevices.dev_off()
+
+    png = open(fpng, "rb").read()
+    fp.close()
+    os.unlink(fpng)
+
+    filename = "windcontours_" + tstep + "_at_" + height + "m_" + net_aws + ".png"
+    cd = "attachment; filename=" + filename
+    imgpng = Response(png, mimetype="image/png", headers={"Content-disposition": cd})
+    return imgpng
+

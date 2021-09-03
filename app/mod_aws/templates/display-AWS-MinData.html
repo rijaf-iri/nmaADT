@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/highcharts-more.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/exporting.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/accessibility.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
 <style>
     #contAWSGraph {
@@ -112,7 +114,7 @@
                         </div>
                         <div class="input-container-content">
                             <div>
-                                <label class="control-label">Select Time (<code style="color:black;">15 minutes interval</code>)</label>
+                                <label class="control-label">Select Time</label>
                                 <br>
                                 <table class="aws-select-time map-select-time"></table>
                             </div>

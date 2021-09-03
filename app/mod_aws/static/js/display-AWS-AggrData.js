@@ -215,10 +215,18 @@ function plot_Map_dataAggrAWS(daty) {
             var vars = $("#awsSpVar option:selected").val();
             leaflet_Map_dataAggrAWS(vars, json);
         },
+        beforeSend: () => {
+            if (mymapBE != undefined) {
+                mymapBE.closePopup();
+                mymapBE.spin(true, spinner_opts);
+            }
+        },
         error: (request, status, error) => {
             $('#errorMSG').css("background-color", "red");
             $('#errorMSG').html("Error: " + request + status + error);
         }
+    }).always(() => {
+        mymapBE.spin(false);
     });
 }
 

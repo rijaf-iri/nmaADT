@@ -15,7 +15,7 @@ function setAWSMinDataTime() {
 
     var daty = new Date();
     //
-    for (var i = 0; i < 60; ++i) {
+    for (var i = 0; i < 60; i += 15) {
         var mn = i;
         if (i < 10) {
             mn = "0" + i;
@@ -25,10 +25,11 @@ function setAWSMinDataTime() {
         );
     }
     var vmin = daty.getMinutes();
+    vmin = vmin - vmin % 15;
     $("#minute1").val("00");
     $("#minute2").val((vmin < 10 ? "0" : "") + vmin);
     //
-    for (var i = 0; i < 60; i += 10) {
+    for (var i = 0; i < 60; i += 15) {
         var mn1 = i;
         if (i < 10) {
             mn1 = "0" + i;

@@ -1,5 +1,11 @@
 $(document).ready(() => {
     setAWSWindDataTime(5);
+    setAWSWindDataCoords('2');
+
+    $("#windHeight").on("change", () => {
+        var height = $("#windHeight option:selected").val();
+        setAWSWindDataCoords(height);
+    });
 
     ////////
     var today = new Date();
@@ -7,12 +13,13 @@ $(document).ready(() => {
     today.setDate(today.getDate() - 5);
     var daty1 = dateFormat(today, "yyyy-mm-dd-hh");
     var data0 = {
-        "aws": "000003",
+        "net_aws": "1_17",
+        "height": "2",
         "tstep": "hourly",
         "start": daty1,
         "end": daty2
     };
-    plotWindBarb10MinHourly(data0);
+    plot_WindBarb_MinHourly(data0);
 
     //
     $("#plotWindDataBut").on("click", () => {
@@ -25,24 +32,25 @@ $(document).ready(() => {
         var vrange = startEndDateTime(timestep, obj);
         //
         var data = {
-            "aws": $("#stationDispAWS option:selected").val(),
+            "net_aws": $("#stationDispAWS option:selected").val(),
+            "height": $("#windHeight option:selected").val(),
             "tstep": timestep,
             "start": vrange.start,
             "end": vrange.end
         };
-        plotWindBarb10MinHourly(data);
+        plot_WindBarb_MinHourly(data);
     });
 });
 
 /////////// 
 
-function plotWindBarb10MinHourly(data) {
+function plot_WindBarb_MinHourly(data) {
     $.ajax({
         dataType: "json",
-        url: "/dispWindBarb",
+        url: "/chartWindBarb",
         data: data,
         timeout: 120000,
-        success: highchartsWindBarb10MinHourly,
+        success: highcharts_WindBarb_MinHourly,
         beforeSend: () => {
             $("#plotWindDataBut .glyphicon-refresh").show();
         },
@@ -62,12 +70,12 @@ function plotWindBarb10MinHourly(data) {
 
 /////////// 
 
-function highchartsWindBarb10MinHourly(json) {
-    if (jQuery.isEmptyObject(json)) {
-        $('#errorMSG').css("background-color", "orange").html("No data");
+function highcharts_WindBarb_MinHourly(json) {
+    if (json.status != 'ok') {
+        $('#errorMSG').css("background-color", "orange").html(json.status);
         return false;
     }
-
+    //
     var options = {
         title: {
             text: json.title,

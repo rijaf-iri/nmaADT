@@ -232,10 +232,18 @@ function plotSel_Map_dataAggrAWS(daty, selaws) {
             }
             leaflet_Map_dataAggrAWS(vars, jsonSP);
         },
+        beforeSend: () => {
+            if (mymapBE != undefined) {
+                mymapBE.closePopup();
+                mymapBE.spin(true, spinner_opts);
+            }
+        },
         error: (request, status, error) => {
             $('#errorMSG').css("background-color", "red");
             $('#errorMSG').html("Error: " + request + status + error);
         }
+    }).always(() => {
+        mymapBE.spin(false);
     });
 }
 

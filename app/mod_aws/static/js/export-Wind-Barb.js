@@ -13,7 +13,8 @@ $("#downWindDataBut").on("click", () => {
     var timestep = $("#timestepDispTS option:selected").val();
     var vrange = startEndDateTime(timestep, obj);
     var data = {
-        aws: $("#stationDispAWS option:selected").val(),
+        net_aws: $("#stationDispAWS option:selected").val(),
+        height: $("#windHeight option:selected").val(),
         tstep: timestep,
         start: vrange.start,
         end: vrange.end
