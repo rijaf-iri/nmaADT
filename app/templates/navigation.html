@@ -32,7 +32,7 @@
                             </ul>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="">Hourly Mean Sea Level Pressure </a></li>
+                        <li><a href="{{ url_for('aws.dispMSLPHourly_page') }}">Hourly Mean Sea Level Pressure </a></li>
                         <li class="divider"></li>
                         <li><a href="">Rainfall Accumulation</a></li>
                         {% if session.logged_in %}

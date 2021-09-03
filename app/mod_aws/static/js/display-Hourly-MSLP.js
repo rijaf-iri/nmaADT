@@ -12,14 +12,14 @@ $(document).ready(() => {
     ////////////
     // Initialize map
     var daty0 = formatDateMap1Hour();
-    plotMapHourlyMSLP(daty0);
+    plot_Map_HourlyMSLP(daty0);
 
     ////////
     $("#AWSMapDis").on("click", () => {
         $('a[href="#dispawssp"]').click();
         //
         var daty = formatDateMap1Hour();
-        plotMapHourlyMSLP(daty);
+        plot_Map_HourlyMSLP(daty);
     });
     //
     $("#AWSMapNext").on("click", () => {
@@ -27,7 +27,7 @@ $(document).ready(() => {
         //
         setDateTimeMapData(1);
         var daty = formatDateMap1Hour();
-        plotMapHourlyMSLP(daty);
+        plot_Map_HourlyMSLP(daty);
     });
     //
     $("#AWSMapPrev").on("click", () => {
@@ -35,7 +35,7 @@ $(document).ready(() => {
         //
         setDateTimeMapData(-1);
         var daty = formatDateMap1Hour();
-        plotMapHourlyMSLP(daty);
+        plot_Map_HourlyMSLP(daty);
     });
     // 
 
@@ -61,22 +61,30 @@ $(document).ready(() => {
 
 //////////
 
-function plotMapHourlyMSLP(daty) {
+function plot_Map_HourlyMSLP(daty) {
     var data = {
         "time": daty
     };
     // 
     $.ajax({
-        url: '/dispMapMSLPHourly',
+        url: '/mapHourlyMSLP',
         data: data,
         dataType: "json",
         success: (json) => {
-            leafletMapMSLP(json);
             AWS_DATA = json;
+            leaflet_Map_HourlyMSLP(json);
+        },
+        beforeSend: () => {
+            if (mymapBE != undefined) {
+                mymapBE.closePopup();
+                mymapBE.spin(true, spinner_opts);
+            }
         },
         error: (request, status, error) => {
             $('#errorMSG').css("background-color", "red");
             $('#errorMSG').html("Error: " + request + status + error);
         }
+    }).always(() => {
+        mymapBE.spin(false);
     });
 }

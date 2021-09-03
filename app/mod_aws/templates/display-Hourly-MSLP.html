@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
-{% block title %} Meteo Rwanda AWS MSLP {% endblock %}
+{% block title %} NMA ADT {% endblock %}
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.css') }}">
 <script type="text/javascript" src="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
 <style>
     #mapAWSVars {

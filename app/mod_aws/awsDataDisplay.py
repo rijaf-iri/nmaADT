@@ -395,3 +395,32 @@ def graphWindContours():
     imgpng = Response(png, mimetype="image/png", headers={"Content-disposition": cd})
     return imgpng
 
+################
+
+@mod_aws.route("/dispMSLPHourlyPage")
+def dispMSLPHourly_page():
+    return render_template("display-Hourly-MSLP.html")
+
+
+@mod_aws.route("/mapHourlyMSLP")
+def mapHourlyMSLP():
+    time = request.args.get("time")
+    robj = mtoadt.mapHourlyMSLP(time, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/downHourlyMSLP")
+@login_required
+def downHourlyMSLP():
+    time = request.args.get("time")
+    robj = mtoadt.downHourlyMSLP(time, dirAWS)
+
+    filename = "MSLP_" + time + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+

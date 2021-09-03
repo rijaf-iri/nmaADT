@@ -62,11 +62,11 @@ function setAWSHourlyMSLPTime() {
 function hourlyMSLPbindPopup(don, date) {
     var content = '<b> Date : </b>' + date + '<br>' +
         '<b>ID : </b>' + don.id +
-        '; <b>NAME : </b>' + don.stationName +
-        '; <b>GROUP : </b>' + don.AWSGroup + '<br>' +
+        '; <b>NAME : </b>' + don.name +
+        '; <b>NETWORK : </b>' + don.network + '<br>' +
         "<b>Longitude: </b>" + don.longitude + '<br>' +
         "<b>Latitude: </b>" + don.latitude + '<br>' +
-        "<b>Altitude: </b>" + don.elevation + " m" + '<br>' +
+        "<b>Altitude: </b>" + don.altitude + " m" + '<br>' +
         "<b>Air Temperature: </b>" + don.TAVG + " °C" + '<br>' +
         "<b>Station Pressure: </b>" + don.PRESAVG + " hPa" + '<br>' +
         "<b>MSLP : </b>" + don.MSLP + ' hPa';
@@ -80,7 +80,7 @@ function hourlyMSLPbindPopup(don, date) {
 
 //////////
 
-function leafletMapMSLP(json) {
+function leaflet_Map_HourlyMSLP(json) {
     var mymap = createLeafletTileLayer("mapAWSVars");
 
     $('a[href="#dispawssp"]').on('shown.bs.tab', (e) => {
