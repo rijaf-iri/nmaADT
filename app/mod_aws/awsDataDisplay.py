@@ -423,4 +423,121 @@ def downHourlyMSLP():
     )
     return downcsv
 
+################
+
+@mod_aws.route("/dispAWSAccumulRRPage")
+def dispAWSAccumulRR_page():
+    return render_template("display-AWS-AccumulRain.html")
+
+
+@mod_aws.route("/chartRainAccumul")
+def chartRainAccumul():
+    net_aws = request.args.get("net_aws")
+    tstep = request.args.get("tstep")
+    accumul = request.args.get("accumul")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    robj = mtoadt.chartRainAccumul(tstep, net_aws, start, end, accumul, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/mapRainAccumul")
+def mapRainAccumul():
+    time = request.args.get("time")
+    tstep = request.args.get("tstep")
+    accumul = request.args.get("accumul")
+    robj = mtoadt.mapRainAccumul(tstep, time, accumul, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/downRainAccumulTS")
+@login_required
+def downRainAccumulTS():
+    net_aws = request.args.get("net_aws")
+    tstep = request.args.get("tstep")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    accumul = request.args.get("accumul")
+    robj = mtoadt.downRainAccumulTS(tstep, net_aws, start, end, accumul, dirAWS)
+
+    sfx = "Hour" if tstep == "hourly" else "Day"
+    filename = "Precip-Accum_" + accumul + "-" + sfx + "_" + net_aws + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+@mod_aws.route("/downRainAccumulSP")
+@login_required
+def downRainAccumulSP():
+    time = request.args.get("time")
+    tstep = request.args.get("tstep")
+    accumul = request.args.get("accumul")
+    robj = mtoadt.downRainAccumulSP(tstep, time, accumul, dirAWS)
+
+    sfx = "Hour" if tstep == "hourly" else "Day"
+    filename = "Precip-Accum_" + accumul + "-" + sfx + "_" + time + ".csv"
+    cd = "attachment; filename=" + filename
+    downcsv = Response(
+        robj[0], mimetype="text/csv", headers={"Content-disposition": cd}
+    )
+    return downcsv
+
+
+#################
+
+
+@mod_aws.route("/dispQCMinutesPage")
+@login_required
+def dispQCMinutes_page():
+    return render_template("display-AWS-QCMinutes.html")
+
+
+@mod_aws.route("/displayQCMinutes")
+@login_required
+def displayQCMinutes():
+    time = request.args.get("time")
+    # robj = mtoadt.displayQCMinutes(time, dirAWS)
+    # pyobj = json.loads(robj[0])
+    pyobj = {"status": "no-data"}
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/dispQCHourlyPage")
+@login_required
+def dispQCHourly_page():
+    return render_template("display-AWS-QCHourly.html")
+
+
+@mod_aws.route("/displayQCHourly")
+@login_required
+def displayQCHourly():
+    time = request.args.get("time")
+    # robj = mtoadt.displayQCHourly(time, dirAWS)
+    # pyobj = json.loads(robj[0])
+    pyobj = {"status": "no-data"}
+    return json.dumps(pyobj)
+
+
+@mod_aws.route("/dispLogFilesPage")
+@login_required
+def dispLogFiles_page():
+    return render_template("display-AWS-LogFiles.html")
+
+
+@mod_aws.route("/displayLogFiles")
+@login_required
+def displayLogFiles():
+    date = request.args.get("date")
+    logtype = request.args.get("logtype")
+    awsnet = request.args.get("awsnet")
+    # robj = mtoadt.displayLogFiles(logtype, dirAWS, awsnet, date)
+    # pyobj = json.loads(robj[0])
+    pyobj = {"status": "no-data"}
+    return json.dumps(pyobj)
+
 

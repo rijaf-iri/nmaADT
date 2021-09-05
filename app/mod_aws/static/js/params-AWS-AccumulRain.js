@@ -91,8 +91,8 @@ function rainAccumulbindPopup(don, date) {
 
     var content = '<b> Date : </b>' + date + '<br>' +
         '<b>ID : </b>' + don.id +
-        '<b>; NAME : </b>' + don.stationName +
-        '<b>; GROUP : </b>' + don.AWSGroup + '<br>' +
+        '<b>; NAME : </b>' + don.name +
+        '<b>; NETWORK : </b>' + don.network + '<br>' +
         "<b>Precipitation " + accum + "-" + suffix +
         " Accumulation : </b>" + don.accumul + ' mm';
 
@@ -105,9 +105,14 @@ function rainAccumulbindPopup(don, date) {
 
 //////////
 
-function highchartsRainAccumulAWS(json) {
-    if (json.opts.status == "no-data") {
-        $('#errorMSG').css("background-color", "orange").html("No data");
+function highcharts_TS_RainAccumul(json) {
+    if (json.opts.status != "plot") {
+        if (json.opts.status == "no-data") {
+            txt = "No available data"
+        } else {
+            txt = "unable to connect to database"
+        }
+        $('#errorMSG').css("background-color", "orange").html(txt);
         return false;
     }
     var options = {
@@ -181,7 +186,7 @@ function highchartsRainAccumulAWS(json) {
 
 //////////
 
-function leafletMapRainAccumulAWS(json) {
+function leaflet_Map_RainAccumul(json) {
     var mymap = createLeafletTileLayer("mapAWSVars");
 
     $('a[href="#dispawssp"]').on('shown.bs.tab', (e) => {
@@ -193,6 +198,13 @@ function leafletMapRainAccumulAWS(json) {
         var popup = L.popup()
             .setLatLng([mapCenterLAT, mapCenterLON])
             .setContent("No available data")
+            .openOn(mymap);
+        return false;
+    }
+    if (json.status == "failed-connection") {
+        var popup = L.popup()
+            .setLatLng([mapCenterLAT, mapCenterLON])
+            .setContent("Unable to connect to the database")
             .openOn(mymap);
         return false;
     }
@@ -219,7 +231,7 @@ function leafletMapRainAccumulAWS(json) {
         divIconHtml.append(divIco);
 
         var txttip = '<b>ID : </b>' + don.id + '<br>' + '<b>NAME : </b>' +
-            don.stationName + '<br>' + '<b>GROUP : </b>' + don.AWSGroup;
+            don.name + '<br>' + '<b>NETWORK : </b>' + don.network;
         var tablePopup = rainAccumulbindPopup(don, json.date).prop('outerHTML');
         //
         var icon = L.divIcon({

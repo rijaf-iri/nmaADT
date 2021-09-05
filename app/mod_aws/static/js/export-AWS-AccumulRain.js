@@ -14,7 +14,7 @@ $("#downAWSAccumTS").on("click", () => {
     var vrange = startEndDateTime(tstep, obj);
 
     var data = {
-        aws: $("#stationDispAWS option:selected").val(),
+        net_aws: $("#stationDispAWS option:selected").val(),
         accumul: $("#accumulTime").val(),
         tstep: tstep,
         start: vrange.start,

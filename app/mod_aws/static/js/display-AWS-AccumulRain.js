@@ -4,16 +4,18 @@ $(document).ready(() => {
 
     $.getJSON('/readCoords', (json) => {
         AWS_JSON = json;
+
         $('#stationDispAWS').attr('enabled', 'true');
         $.each(AWS_JSON, function() {
-            var text = this.id + " - " + this.stationName + " - " + this.AWSGroup;
-            var val = this.id;
+            var text = this.name + " - " + this.id + " - " + this.network;
+            var val = this.network_code + "_" + this.id;
             $('#stationDispAWS').append(
                 $("<option>").text(text).val(val)
             );
         });
-        $('#stationDispAWS option[value=000003]').attr('selected', true);
-        AWS_INFO = getAWSInfos('000003');
+
+        $('#stationDispAWS option[value=2_SHADDI15]').attr('selected', true);
+        AWS_INFO = getAWSInfos('2_SHADDI15');
     });
 
     ////////////
@@ -23,13 +25,13 @@ $(document).ready(() => {
     var daty1 = dateFormat(today, "yyyy-mm-dd-hh");
 
     var data0 = {
-        "aws": "000003",
-        "tstep": "hourly",
+        "net_aws": "2_SHADDI15",
         "accumul": "1",
+        "tstep": "hourly",
         "start": daty1,
         "end": daty2
     };
-    plotRainAccumulAWS(data0);
+    plot_TS_RainAccumulAWS(data0);
 
     //
     $("#plotAWSGraph").on("click", () => {
@@ -43,26 +45,26 @@ $(document).ready(() => {
         var vrange = startEndDateTime(tstep, obj);
         //
         var data = {
-            "aws": $("#stationDispAWS option:selected").val(),
-            "tstep": tstep,
+            "net_aws": $("#stationDispAWS option:selected").val(),
             "accumul": $("#accumulTime").val(),
+            "tstep": tstep,
             "start": vrange.start,
             "end": vrange.end
         };
-        plotRainAccumulAWS(data);
+        plot_TS_RainAccumulAWS(data);
     });
 
     ////////////
     // Initialize map
     var daty0 = getDateTimeMapData();
-    plotMapRainAccumulAWS(daty0);
+    plot_Map_RainAccumulAWS(daty0);
 
     ////////
     $("#AWSMapDis").on("click", () => {
         $('a[href="#dispawssp"]').click();
         //
         var daty = getDateTimeMapData();
-        plotMapRainAccumulAWS(daty);
+        plot_Map_RainAccumulAWS(daty);
     });
     //
     $("#AWSMapNext").on("click", () => {
@@ -70,7 +72,7 @@ $(document).ready(() => {
         //
         setDateTimeMapData(1);
         var daty = getDateTimeMapData();
-        plotMapRainAccumulAWS(daty);
+        plot_Map_RainAccumulAWS(daty);
     });
     //
     $("#AWSMapPrev").on("click", () => {
@@ -78,7 +80,7 @@ $(document).ready(() => {
         //
         setDateTimeMapData(-1);
         var daty = getDateTimeMapData();
-        plotMapRainAccumulAWS(daty);
+        plot_Map_RainAccumulAWS(daty);
     });
     // 
 
@@ -106,13 +108,13 @@ $(document).ready(() => {
 
 //////////
 
-function plotRainAccumulAWS(data) {
+function plot_TS_RainAccumulAWS(data) {
     $.ajax({
         dataType: "json",
-        url: '/chartRainAccumulAWS',
+        url: '/chartRainAccumul',
         data: data,
         timeout: 120000,
-        success: highchartsRainAccumulAWS,
+        success: highcharts_TS_RainAccumul,
         beforeSend: () => {
             $("#plotAWSGraph .glyphicon-refresh").show();
         },
@@ -132,7 +134,7 @@ function plotRainAccumulAWS(data) {
 
 //////////
 
-function plotMapRainAccumulAWS(daty) {
+function plot_Map_RainAccumulAWS(daty) {
     var data = {
         "tstep": $("#timestepDispTS option:selected").val(),
         "accumul": $("#accumulTime").val(),
@@ -141,15 +143,23 @@ function plotMapRainAccumulAWS(daty) {
     // 
     $.ajax({
         dataType: "json",
-        url: '/displayMAPRainAccumul',
+        url: '/mapRainAccumul',
         data: data,
         success: (json) => {
-            leafletMapRainAccumulAWS(json);
+            leaflet_Map_RainAccumul(json);
             AWS_DATA = json;
+        },
+        beforeSend: () => {
+            if (mymapBE != undefined) {
+                mymapBE.closePopup();
+                mymapBE.spin(true, spinner_opts);
+            }
         },
         error: (request, status, error) => {
             $('#errorMSG').css("background-color", "red");
             $('#errorMSG').html("Error: " + request + status + error);
         }
+    }).always(() => {
+        mymapBE.spin(false);
     });
 }

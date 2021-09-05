@@ -34,19 +34,19 @@
                         <li class="divider"></li>
                         <li><a href="{{ url_for('aws.dispMSLPHourly_page') }}">Hourly Mean Sea Level Pressure </a></li>
                         <li class="divider"></li>
-                        <li><a href="">Rainfall Accumulation</a></li>
+                        <li><a href="{{ url_for('aws.dispAWSAccumulRR_page') }}">Rainfall Accumulation</a></li>
                         {% if session.logged_in %}
                         <li class="divider"></li>
                         <li class="dropdown-submenu">
                             <a href="#"> AWS Quality Control Outputs </a>
                             <ul class="dropdown-menu">
-                                <li><a href=""> Native Time Step - Limit Check </a></li>
+                                <li><a href="{{ url_for('aws.dispQCMinutes_page') }}"> 15 Minutes - Limit Check </a></li>
                                 <li class="divider"></li>
-                                <li><a href="">Hourly - Spatial Check</a></li>
+                                <li><a href="{{ url_for('aws.dispQCHourly_page') }}">Hourly - Spatial Check</a></li>
                             </ul>
                         </li>
-                        <li class="divider"></li>
-                        <li><a href="">AWS Processing Log Files</a></li>
+                        <!-- <li class="divider"></li> -->
+                        <!-- <li><a href="{{ url_for('aws.dispLogFiles_page') }}">AWS Processing Log Files</a></li> -->
                         {% endif %}
                     </ul>
                 </li>

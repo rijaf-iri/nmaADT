@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Meteo Rwanda AWS Rainfall Accumulation {% endblock %}
+{% block title %} NMA ADT {% endblock %}
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-1.6.0/leaflet.css') }}">
@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/highcharts-more.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/exporting.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/highcharts-8.1.2/modules/accessibility.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/spin.js/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet.Spin-1.1.2/leaflet.spin.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
 <style>
     #contAWSGraph {
