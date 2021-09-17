@@ -73,6 +73,7 @@ function plot_Map_HourlyMSLP(daty) {
         success: (json) => {
             AWS_DATA = json;
             leaflet_Map_HourlyMSLP(json);
+            $('#errorMSG').empty();
         },
         beforeSend: () => {
             if (mymapBE != undefined) {

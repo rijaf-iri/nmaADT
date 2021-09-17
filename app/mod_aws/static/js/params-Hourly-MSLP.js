@@ -120,7 +120,7 @@ function leaflet_Map_HourlyMSLP(json) {
         divIconHtml.append(divIco);
 
         var txttip = '<b>ID : </b>' + don.id + '<br>' + '<b>NAME : </b>' +
-            don.stationName + '<br>' + '<b>GROUP : </b>' + don.AWSGroup;
+            don.name + '<br>' + '<b>NETWORK : </b>' + don.network;
         var tablePopup = hourlyMSLPbindPopup(don, json.date).prop('outerHTML');
         //
         var icon = L.divIcon({

@@ -8,16 +8,22 @@
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/L.Control.MousePosition/L.Control.MousePosition.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/js/leaflet-color-markers.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='lib/Plugins-leaflet/Leaflet-easyPrint/bundle.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('aws.static', filename='css/aws.css') }}">
 <style>
     #mapAWSCoords {
     width: 100%;
     height: 80vh;
     }
-    #idTable {
+    #idTable, #crdTable {
     max-height: 80vh;
     }
     #downLeafletMap{
     margin: 10px 0 10px 0;
+    }
+    .pinstatus{
+    height: 35px;
+    width: 20px;
+    margin-right: 10px;
     }
     </style>
 {% endblock %}
@@ -51,6 +57,74 @@
                             <button type="button" id="downLeafletMap" class="btn btn-primary btn-block"> Download Map </button>
                         </div>
                     </div>
+                    <!--  -->
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>AWS Coordinates Table</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <label class="control-label">Select AWS network</label>
+                                <select name="awsnet" id="awsnet" class="form-control">
+                                    <option value="1" selected>VAISALA</option>
+                                    <option value="2">ADCON</option>
+                                    <option value="3">KOICA</option>
+                                </select>
+                            </div>
+                            <div>
+                                <a id="awsCrdTable">
+                                    <button type="button" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;"></i> Display Coordinates Table</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="input-container">
+                        <div class="input-container-title">
+                            <span>Legend</span>
+                            <span class="glyphicon glyphicon-plus input-container-icon"></span>
+                        </div>
+                        <div class="input-container-content">
+                            <div>
+                                <!--  -->
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-blue.png') }}">
+                                        </td>
+                                        <td>
+                                            Vaisala, network_code = 1
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-green.png') }}">
+                                        </td>
+                                        <td>
+                                            Adcon, network_code = 2
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-violet.png') }}">
+                                        </td>
+                                        <td>
+                                            Koica, network_code = 3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img class="pinstatus" src="{{ url_for('static', filename='lib/Plugins-leaflet/leaflet-color-markers/img/marker-icon-2x-red.png') }}">
+                                        </td>
+                                        <td>
+                                            Duplicated
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,6 +133,7 @@
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#mapstnloc" data-toggle="tab">Stations locations</a></li>
                 <li><a href="#misscoords" data-toggle="tab">Missing coordinates</a></li>
+                <li><a href="#awstable" data-toggle="tab">AWS Table</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="mapstnloc">
@@ -73,6 +148,9 @@
                             <tbody></tbody>
                         </table>
                     </div>
+                </div>
+                <div class="tab-pane" id="awstable">
+                    <div id="crdTable" class="table-responsive"> </div>
                 </div>
             </div>
         </div>

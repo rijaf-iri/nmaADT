@@ -26,11 +26,11 @@ function updateStatusMap() {
             $('#lastUpdate').html(json.update);
 
             AWS_DATA = json;
-            leafletAWSStatusMap(json.data);
+            leaflet_Map_AWSStatus(json.data);
         });
 }
 
-function leafletAWSStatusMap(data) {
+function leaflet_Map_AWSStatus(data) {
     var mymap = createLeafletTileLayer("mapAWSStatus");
 
     mymap.closePopup();

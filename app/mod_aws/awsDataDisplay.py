@@ -39,9 +39,15 @@ def dispAWSCoords_map():
     return json.dumps(pyobj)
 
 
-@mod_aws.route("/dispAWSMinDataPage")
-def dispAWSMinData_page():
-    return render_template("display-AWS-MinData.html")
+@mod_aws.route("/dispAWSCoordsTable")
+def dispAWSCoordsTable():
+    awsnet = request.args.get("awsnet")
+    robj = mtoadt.tableAWSCoords(awsnet, dirAWS)
+    pyobj = json.loads(robj[0])
+    return json.dumps(pyobj)
+
+
+################
 
 
 @mod_aws.route("/readCoords")
@@ -58,6 +64,14 @@ def getAWSTimeRange():
     robj = mtoadt.getAWSTimeRange(aws_id, aws_net, dirAWS)
     pyobj = json.loads(robj[0])
     return json.dumps(pyobj)
+
+
+################
+
+
+@mod_aws.route("/dispAWSMinDataPage")
+def dispAWSMinData_page():
+    return render_template("display-AWS-MinData.html")
 
 
 @mod_aws.route("/chartMinAWSData")
@@ -97,6 +111,9 @@ def downAWSMinDataCSV():
         pyobj["data"], mimetype="text/csv", headers={"Content-disposition": cd}
     )
     return downcsv
+
+
+################
 
 
 @mod_aws.route("/dispAWSAggrDataPage")
@@ -395,7 +412,9 @@ def graphWindContours():
     imgpng = Response(png, mimetype="image/png", headers={"Content-disposition": cd})
     return imgpng
 
+
 ################
+
 
 @mod_aws.route("/dispMSLPHourlyPage")
 def dispMSLPHourly_page():
@@ -423,7 +442,9 @@ def downHourlyMSLP():
     )
     return downcsv
 
+
 ################
+
 
 @mod_aws.route("/dispAWSAccumulRRPage")
 def dispAWSAccumulRR_page():
@@ -541,3 +562,11 @@ def displayLogFiles():
     return json.dumps(pyobj)
 
 
+#################
+
+# @mod_aws.route("/dispAWSStatusMap")
+# def dispAWSStatus_map():
+#     ltime = request.args.get("ltime")
+#     robj = mtoadt.readAWSStatus(ltime, dirAWS)
+#     pyobj = json.loads(robj[0])
+#     return json.dumps(pyobj)

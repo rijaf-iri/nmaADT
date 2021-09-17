@@ -54,7 +54,7 @@ $(document).ready(() => {
     $('#jsonTable tbody tr').html('');
     $.getJSON('/dispAWSCoordsMap', (json) => {
         var colHeader = Object.keys(json[1]);
-        colHeader.splice(11, 3);
+        colHeader.splice(14, 3);
         for (var i = 0; i < colHeader.length; i++) {
             $('#jsonTable thead tr').append('<th>' + colHeader[i] + '</th>');
         }
@@ -63,11 +63,10 @@ $(document).ready(() => {
             var cont2 = '<br>' + 'longitude : ' + this.longitude + '<br>' + 'latitude : ' + this.latitude;
             var cont3 = '<br>' + 'altitude : ' + this.altitude + '<br>' + 'woreda : ' + this.woreda;
             var cont4 = '<br>' + 'zone : ' + this.zone + '<br>' + 'region : ' + this.region;
-            var cont5 = '<br>' + 'AWS Network : ' + this.network + '<br>';
-            var cont6 = '<br>' + 'Start : ' + this.startdate + '<br>' + 'End : ' + this.enddate;
-            // var cont7 = '<br>' + 'Parameters : ' + this.PARS + '<br>';
-            // var contenu = cont1 + cont2 + cont3 + cont4 + cont5 + cont6 + cont7;
-            var contenu = cont1 + cont2 + cont3 + cont4 + cont5 + cont6;
+            var cont5 = '<br>' + 'network name: ' + this.network + '<br>' + 'network code: ' + this.network_code;
+            var cont6 = '<br>' + 'Gh_id : ' + this.Gh_id + '<br>' + 'MSC: ' + this.MSC;
+            var cont7 = '<br>' + 'Start : ' + this.startdate + '<br>' + 'End : ' + this.enddate;
+            var contenu = cont1 + cont2 + cont3 + cont4 + cont5 + cont6 + cont7;
             if (this.LonX != null) {
                 L.marker([this.LatX, this.LonX], { icon: icons[this.StatusX].icon })
                     .bindPopup(contenu).addTo(mymap);
@@ -138,4 +137,68 @@ $(document).ready(() => {
     $("#downLeafletMap").on("click", () => {
         printer.printMap('CurrentSize', 'aws_map');
     });
+
+    ////////////
+    // initialize table with vaisala
+    disp_Table_Coords("1");
+
+    //////
+
+    $("#awsCrdTable").on("click", () => {
+        $('a[href="#awstable"]').click();
+        //
+        var awsnet = $("#awsnet option:selected").val();
+        disp_Table_Coords(awsnet);
+    });
 });
+
+////////////
+
+function disp_Table_Coords(awsnet) {
+    $.ajax({
+        dataType: "json",
+        data: { awsnet: awsnet },
+        url: '/dispAWSCoordsTable',
+        timeout: 120000,
+        success: (json) => {
+            $('.jsonTable').remove();
+
+            //
+            var colHeader = Object.keys(json[0]);
+            var colNb = colHeader.length;
+            var rowNb = json.length;
+            //
+            var table = $('<table>').addClass('jsonTable').attr('id', 'jsonTable');
+            var rowh = $('<tr>');
+            for (var i = 0; i < colNb; i++) {
+                var col = $('<th>').text(colHeader[i]);
+                rowh.append(col);
+            }
+            table.append(rowh);
+            for (var i = 0; i < rowNb; i++) {
+                var row = $('<tr>');
+                for (var j = 0; j < colNb; j++) {
+                    var col = $('<td>').text(json[i][colHeader[j]]);
+                    row.append(col);
+                }
+                table.append(row);
+            }
+            //
+            $('#crdTable').append(table);
+        },
+        beforeSend: () => {
+            $("#awsCrdTable .glyphicon-refresh").show();
+        },
+        error: (request, status, error) => {
+            if (status === "timeout") {
+                $('#errorMSG').css("background-color", "orange");
+                $('#errorMSG').html("Take too much time to render, select a shorter time range or refresh your web browser");
+            } else {
+                $('#errorMSG').css("background-color", "red");
+                $('#errorMSG').html("Error: " + request + status + error);
+            }
+        }
+    }).always(() => {
+        $("#awsCrdTable .glyphicon-refresh").hide();
+    });
+}
