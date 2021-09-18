@@ -50,7 +50,10 @@ function plot_WindBarb_MinHourly(data) {
         url: "/chartWindBarb",
         data: data,
         timeout: 120000,
-        success: highcharts_WindBarb_MinHourly,
+        success: (json) => {
+            highcharts_WindBarb_MinHourly(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotWindDataBut .glyphicon-refresh").show();
         },

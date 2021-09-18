@@ -114,7 +114,10 @@ function plot_TS_RainAccumulAWS(data) {
         url: '/chartRainAccumul',
         data: data,
         timeout: 120000,
-        success: highcharts_TS_RainAccumul,
+        success: (json) => {
+            highcharts_TS_RainAccumul(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotAWSGraph .glyphicon-refresh").show();
         },
@@ -146,8 +149,9 @@ function plot_Map_RainAccumulAWS(daty) {
         url: '/mapRainAccumul',
         data: data,
         success: (json) => {
-            leaflet_Map_RainAccumul(json);
             AWS_DATA = json;
+            leaflet_Map_RainAccumul(json);
+            $('#errorMSG').empty();
         },
         beforeSend: () => {
             if (mymapBE != undefined) {

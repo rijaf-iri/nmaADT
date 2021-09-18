@@ -203,6 +203,7 @@ function plot_Map_dataMinAWS(daty) {
             AWS_DATA = json;
             var vars = $("#awsSpVar option:selected").val();
             leaflet_Map_dataMinAWS(vars, json);
+            $('#errorMSG').empty();
         },
         beforeSend: () => {
             if (mymapBE != undefined) {
@@ -227,7 +228,10 @@ function plot_TS_dataMinAWS(data) {
         url: '/chartMinAWSData',
         data: data,
         timeout: 120000,
-        success: highcharts_TS_dataMinAWS,
+        success: (json) => {
+            highcharts_TS_dataMinAWS(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotAWSGraph .glyphicon-refresh").show();
         },

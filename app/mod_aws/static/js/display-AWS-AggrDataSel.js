@@ -148,7 +148,7 @@ $(document).ready(() => {
     if (AWS_dataAggrVarObj == undefined) {
         setTimeout(() => {
             setAWSAggrSpVariable();
-        }, 1000);
+        }, 2000);
     } else {
         setAWSAggrSpVariable();
     }
@@ -231,6 +231,7 @@ function plotSel_Map_dataAggrAWS(daty, selaws) {
                 }
             }
             leaflet_Map_dataAggrAWS(vars, jsonSP);
+            $('#errorMSG').empty();
         },
         beforeSend: () => {
             if (mymapBE != undefined) {
@@ -257,7 +258,10 @@ function plotSel_TS_dataAggrAWS(data) {
         contentType: "application/json",
         timeout: 120000,
         dataType: "json",
-        success: highchartsTSAggrAWS,
+        success: (json) => {
+            highchartsTSAggrAWS(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotAWSGraph .glyphicon-refresh").show();
         },

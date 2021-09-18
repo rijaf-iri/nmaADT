@@ -180,7 +180,10 @@ function plot_TS_dataAggrAWS(data) {
         url: '/chartAggrAWSData',
         data: data,
         timeout: 120000,
-        success: highcharts_TS_dataAggrAWS,
+        success: (json) => {
+            highcharts_TS_dataAggrAWS(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotAWSGraph .glyphicon-refresh").show();
         },
@@ -214,6 +217,7 @@ function plot_Map_dataAggrAWS(daty) {
             AWS_DATA = json;
             var vars = $("#awsSpVar option:selected").val();
             leaflet_Map_dataAggrAWS(vars, json);
+            $('#errorMSG').empty();
         },
         beforeSend: () => {
             if (mymapBE != undefined) {

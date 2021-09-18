@@ -92,7 +92,10 @@ function plot_WindRose_MinHourly(data) {
         url: '/chartWindRose',
         data: data,
         timeout: 120000,
-        success: highcharts_WindRose_MinHourly,
+        success: (json) => {
+            highcharts_WindRose_MinHourly(json);
+            $('#errorMSG').empty();
+        },
         beforeSend: () => {
             $("#plotWindroseBut .glyphicon-refresh").show();
         },
